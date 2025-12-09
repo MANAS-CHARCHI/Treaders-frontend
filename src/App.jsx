@@ -1,18 +1,17 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import GoogleLoginButton from "./GoogleLoginButton";
-function App() {
-  const [count, setCount] = useState(0);
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AuthSuccess from "./AuthSuccess";
+import Dashboard from "./Dashboard";
+import Login from "./pages/Login.jsx";
 
+function App() {
   return (
-    <>
-      <div style={{ padding: "50px" }}>
-        <h1>React + Django Google Login</h1>
-        <GoogleLoginButton />
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/auth/success" element={<AuthSuccess />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
