@@ -17,7 +17,7 @@ export default function Login() {
     }
 
     try {
-      const res = await fetch("http://localhost:5001/api/user/login", {
+      const res = await apiFetch("http://localhost:5001/api/user/login", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

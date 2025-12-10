@@ -7,17 +7,16 @@ export default function AuthSuccess() {
     useEffect(() => {
         const query = new URLSearchParams(window.location.search);
 
-        const access = query.get("access");
-        const refresh = query.get("refresh");
+        // backend passes user info
         const user = query.get("user");
 
-        if (access && refresh) {
-            localStorage.setItem("access_token", access);
-            localStorage.setItem("refresh_token", refresh);
+        if (user) {
+            // store user info only
             localStorage.setItem("user", user);
+
             setTimeout(() => navigate("/"), 50);
         } else {
-            navigate("/login"); // something went wrong
+            navigate("/login");
         }
     }, [navigate]);
 
