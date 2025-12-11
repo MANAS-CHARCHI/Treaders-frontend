@@ -9,7 +9,7 @@ export default function Dashboard() {
             method: "POST",
             credentials: "include"
         });
-        console.log(response);
+        localStorage.clear();
         if (!response.ok) {
             console.error("Logout failed");
             return;

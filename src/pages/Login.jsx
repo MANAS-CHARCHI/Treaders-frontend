@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiFetch } from "../api";
 
 export default function Login() {
   const navigate = useNavigate();
 
-  // Form state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  // Vanilla email/password login
   const handleVanillaLogin = async () => {
     if (!email || !password) {
       setError("Please enter email and password");
@@ -27,32 +26,24 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        // Save tokens in localStorage
-        localStorage.setItem("access_token", data.access);
-        localStorage.setItem("refresh_token", data.refresh);
         localStorage.setItem("user", JSON.stringify(data.user));
-
-        // Redirect to dashboard/home
         navigate("/");
       } else {
         setError(data.error || "Login failed");
       }
     } catch (err) {
       console.error(err);
-      setError("Something went wrong. Try again.");
+      setError("Something went wrong");
     }
   };
 
-  // Google social login
   const handleGoogleSocialLogin = () => {
     window.location.href =
       "http://localhost:5001/auth/google/login/google-oauth2/";
   };
 
   return (
-    <div
-      style={{ maxWidth: "400px", margin: "50px auto", textAlign: "center" }}
-    >
+    <div style={{ maxWidth: "400px", margin: "50px auto", textAlign: "center" }}>
       <h2>Login</h2>
 
       {error && <p style={{ color: "red" }}>{error}</p>}
@@ -62,12 +53,7 @@ export default function Login() {
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        style={{
-          display: "block",
-          width: "100%",
-          margin: "10px 0",
-          padding: "10px",
-        }}
+        style={{ display: "block", width: "100%", margin: "10px 0", padding: "10px" }}
       />
 
       <input
@@ -75,22 +61,12 @@ export default function Login() {
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        style={{
-          display: "block",
-          width: "100%",
-          margin: "10px 0",
-          padding: "10px",
-        }}
+        style={{ display: "block", width: "100%", margin: "10px 0", padding: "10px" }}
       />
 
       <button
         onClick={handleVanillaLogin}
-        style={{
-          display: "block",
-          width: "100%",
-          padding: "10px",
-          margin: "10px 0",
-        }}
+        style={{ display: "block", width: "100%", padding: "10px", margin: "10px 0" }}
       >
         Login
       </button>
