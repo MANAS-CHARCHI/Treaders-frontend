@@ -27,15 +27,9 @@ export default function Login() {
       const data = await res.json();
 
       if (res.ok) {
-        // Save tokens in localStorage
-        localStorage.setItem("access_token", data.access);
-        localStorage.setItem("refresh_token", data.refresh);
-        localStorage.setItem("user", JSON.stringify(data.user));
-
-        // Redirect to dashboard/home
         navigate("/");
       } else {
-        setError(data.error || "Login failed");
+        setError(data.message);
       }
     } catch (err) {
       console.error(err);
